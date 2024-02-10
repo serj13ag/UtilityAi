@@ -1,3 +1,4 @@
+using Controllers;
 using UnityEngine;
 using UtilityAi.Considerations;
 
@@ -10,6 +11,6 @@ namespace UtilityAi.Actions
 
         public AiConsideration[] Considerations;
 
-        public abstract void Execute();
+        public abstract void Execute(NpcController npcController);
     }
 }

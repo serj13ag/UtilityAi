@@ -1,3 +1,4 @@
+using System;
 using Controllers;
 using UnityEngine;
 using UtilityAi.Actions;
@@ -9,6 +10,18 @@ namespace UtilityAi
         [SerializeField] private NpcController _npcController;
 
         private AiAction _bestAction;
+
+        public AiAction BestAction
+        {
+            get => _bestAction;
+            private set
+            {
+                _bestAction = value;
+                OnBestActionDecided?.Invoke();
+            }
+        }
+
+        public event Action OnBestActionDecided;
 
         public float ScoreAction(AiAction action)
         {
@@ -48,7 +61,7 @@ namespace UtilityAi
                 }
             }
 
-            _bestAction = actions[bestActionIndex];
+            BestAction = actions[bestActionIndex];
         }
     }
 }
