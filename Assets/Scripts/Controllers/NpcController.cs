@@ -1,4 +1,5 @@
 using System.Collections;
+using Entities;
 using UnityEngine;
 using UtilityAi;
 using UtilityAi.Actions;
@@ -9,6 +10,7 @@ namespace Controllers
     {
         [SerializeField] private MoveController _moveController;
         [SerializeField] private NpcStatsController _statsController;
+        [SerializeField] private NpcInventoryController _inventoryController;
         [SerializeField] private AiBrain _aiBrain;
 
         [SerializeField] private float _workTimeSeconds;
@@ -33,6 +35,11 @@ namespace Controllers
             _aiBrain.DecideBestAction(_actions);
         }
 
+        private void Update()
+        {
+            _statsController.UpdateStats(Time.deltaTime);
+        }
+
         public void DoWork()
         {
             StartCoroutine(WorkRoutine());
@@ -45,7 +52,8 @@ namespace Controllers
 
         public void DoEat()
         {
-            Debug.Log("Eat action ended");
+            _statsController.Hunger -= 30;
+            _statsController.Money -= 10;
 
             DecideNewAction();
         }
@@ -57,18 +65,16 @@ namespace Controllers
 
         private IEnumerator WorkRoutine()
         {
-            Debug.Log("Work action started");
             yield return new WaitForSeconds(_workTimeSeconds);
-            Debug.Log("Work action ended");
+            _inventoryController.AddResource(ResourceType.Wood, 10);
 
             DecideNewAction();
         }
 
         private IEnumerator SleepRoutine()
         {
-            Debug.Log("Sleep action started");
             yield return new WaitForSeconds(_sleepTimeSeconds);
-            Debug.Log("Sleep action ended");
+            _statsController.Energy++;
 
             DecideNewAction();
         }

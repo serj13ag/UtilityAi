@@ -18,19 +18,19 @@ namespace Controllers
         public int Energy
         {
             get => _energy;
-            private set => _energy = Math.Clamp(value, 0, 100);
+            set => _energy = Math.Clamp(value, 0, 100);
         }
 
         public int Hunger
         {
             get => _hunger;
-            private set => _hunger = Math.Clamp(value, 0, 100);
+            set => _hunger = Math.Clamp(value, 0, 100);
         }
 
         public int Money
         {
             get => _money;
-            private set => _money = Math.Clamp(value, 0, 1000);
+            set => _money = Math.Clamp(value, 0, 1000);
         }
 
         private void Start()
