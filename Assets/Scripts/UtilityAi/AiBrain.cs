@@ -23,13 +23,13 @@ namespace UtilityAi
 
         public event Action OnBestActionDecided;
 
-        public float ScoreAction(AiAction action)
+        private float ScoreAction(AiAction action)
         {
             var score = 1f;
 
             foreach (var consideration in action.Considerations)
             {
-                var considerationScore = consideration.ScoreConsideration();
+                var considerationScore = consideration.ScoreConsideration(_npcController);
                 score *= considerationScore;
 
                 if (score == 0)

@@ -1,3 +1,4 @@
+using Controllers;
 using UnityEngine;
 
 namespace UtilityAi.Considerations
@@ -5,9 +6,9 @@ namespace UtilityAi.Considerations
     [CreateAssetMenu(fileName = "Hunger", menuName = "UtilityAi/Considerations/Hunger")]
     public class HungerAiConsideration : AiConsideration
     {
-        public override float ScoreConsideration()
+        protected override float GetValue(NpcController npcController)
         {
-            return 0.2f;
+            return npcController.Stats.Hunger / 100f;
         }
     }
 }

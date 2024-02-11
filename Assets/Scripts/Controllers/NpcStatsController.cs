@@ -15,22 +15,22 @@ namespace Controllers
         private int _hunger;
         private int _money;
 
-        private int Energy
+        public int Energy
         {
             get => _energy;
-            set => _energy = Math.Clamp(value, 0, 100);
+            private set => _energy = Math.Clamp(value, 0, 100);
         }
 
-        private int Hunger
+        public int Hunger
         {
             get => _hunger;
-            set => _hunger = Math.Clamp(value, 0, 100);
+            private set => _hunger = Math.Clamp(value, 0, 100);
         }
 
-        private int Money
+        public int Money
         {
             get => _money;
-            set => _money = Math.Clamp(value, 0, 100);
+            private set => _money = Math.Clamp(value, 0, 1000);
         }
 
         private void Start()

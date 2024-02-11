@@ -8,12 +8,15 @@ namespace Controllers
     public class NpcController : MonoBehaviour
     {
         [SerializeField] private MoveController _moveController;
+        [SerializeField] private NpcStatsController _statsController;
         [SerializeField] private AiBrain _aiBrain;
 
         [SerializeField] private float _workTimeSeconds;
         [SerializeField] private float _sleepTimeSeconds;
 
         [SerializeField] private AiAction[] _actions;
+
+        public NpcStatsController Stats => _statsController;
 
         private void OnEnable()
         {

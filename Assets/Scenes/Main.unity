@@ -747,6 +747,7 @@ GameObject:
   - component: {fileID: 2137896832}
   - component: {fileID: 2137896834}
   - component: {fileID: 2137896833}
+  - component: {fileID: 2137896835}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -855,6 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveController: {fileID: 2137896833}
+  _statsController: {fileID: 2137896835}
   _aiBrain: {fileID: 2137896834}
   _workTimeSeconds: 1
   _sleepTimeSeconds: 3
@@ -888,6 +890,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcController: {fileID: 2137896832}
+--- !u!114 &2137896835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137896827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9fd6dca5ba40afb45dc15ade89bbf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _decreaseEnergyTimeout: 5
+  _increaseHungerTimeout: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
