@@ -1,10 +1,13 @@
 using System;
+using Ui;
 using UnityEngine;
 
 namespace Controllers
 {
     public class NpcStatsController : MonoBehaviour
     {
+        [SerializeField] private NpcView _npcView;
+
         [SerializeField] private float _decreaseEnergyTimeout;
         [SerializeField] private float _increaseHungerTimeout;
 
@@ -18,19 +21,31 @@ namespace Controllers
         public int Energy
         {
             get => _energy;
-            set => _energy = Math.Clamp(value, 0, 100);
+            set
+            {
+                _energy = Math.Clamp(value, 0, 100);
+                _npcView.UpdateStats(this);
+            }
         }
 
         public int Hunger
         {
             get => _hunger;
-            set => _hunger = Math.Clamp(value, 0, 100);
+            set
+            {
+                _hunger = Math.Clamp(value, 0, 100);
+                _npcView.UpdateStats(this);
+            }
         }
 
         public int Money
         {
             get => _money;
-            set => _money = Math.Clamp(value, 0, 1000);
+            set
+            {
+                _money = Math.Clamp(value, 0, 1000);
+                _npcView.UpdateStats(this);
+            }
         }
 
         private void Start()
@@ -41,6 +56,8 @@ namespace Controllers
 
             _timeTillDecreaseEnergy = _decreaseEnergyTimeout;
             _timeTillIncreaseHunger = _increaseHungerTimeout;
+
+            _npcView.UpdateStats(this);
         }
 
         public void UpdateStats(float deltaTime)

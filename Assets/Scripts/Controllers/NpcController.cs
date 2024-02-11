@@ -1,5 +1,6 @@
 using System.Collections;
 using Entities;
+using Ui;
 using UnityEngine;
 using UtilityAi;
 using UtilityAi.Actions;
@@ -8,6 +9,8 @@ namespace Controllers
 {
     public class NpcController : MonoBehaviour
     {
+        [SerializeField] private NpcView _npcView;
+        
         [SerializeField] private MoveController _moveController;
         [SerializeField] private NpcStatsController _statsController;
         [SerializeField] private NpcInventoryController _inventoryController;
@@ -61,6 +64,8 @@ namespace Controllers
         private void AiBrain_OnBestActionDecided()
         {
             _aiBrain.BestAction.Execute(this);
+
+            _npcView.UpdateBestAction(_aiBrain.BestAction);
         }
 
         private IEnumerator WorkRoutine()
