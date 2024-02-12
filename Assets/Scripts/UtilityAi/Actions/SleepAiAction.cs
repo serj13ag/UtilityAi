@@ -10,5 +10,10 @@ namespace UtilityAi.Actions
         {
             npcController.DoSleep();
         }
+
+        public override void SetDestinationPosition(NpcController npcController)
+        {
+            DestinationPosition = npcController.GetSleepPosition();
+        }
     }
 }

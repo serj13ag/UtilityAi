@@ -62,6 +62,7 @@ namespace UtilityAi
             }
 
             BestAction = actions[bestActionIndex];
+            BestAction.SetDestinationPosition(_npcController);
         }
     }
 }

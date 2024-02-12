@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Controllers.NpcStates;
 using Entities;
 using Ui;
 using UnityEngine;
@@ -10,7 +12,7 @@ namespace Controllers
     public class NpcController : MonoBehaviour
     {
         [SerializeField] private NpcView _npcView;
-        
+
         [SerializeField] private MoveController _moveController;
         [SerializeField] private NpcStatsController _statsController;
         [SerializeField] private NpcInventoryController _inventoryController;
@@ -20,6 +22,8 @@ namespace Controllers
         [SerializeField] private float _sleepTimeSeconds;
 
         [SerializeField] private AiAction[] _actions;
+
+        private INpcState _state;
 
         public NpcStatsController Stats => _statsController;
 
@@ -35,12 +39,34 @@ namespace Controllers
 
         private void Start()
         {
-            _aiBrain.DecideBestAction(_actions);
+            ChangeState(NpcState.Deciding);
         }
 
         private void Update()
         {
+            _state.Update(Time.deltaTime);
             _statsController.UpdateStats(Time.deltaTime);
+        }
+
+        public void ChangeState(NpcState state)
+        {
+            INpcState newState;
+            switch (state)
+            {
+                case NpcState.Deciding:
+                    newState = new DecidingNpcState(this, _aiBrain, _actions);
+                    break;
+                case NpcState.Moving:
+                    newState = new MovingNpcState(this, _moveController, _aiBrain.BestAction.DestinationPosition);
+                    break;
+                case NpcState.Executing:
+                    newState = new ExecutingNpcState(this, _aiBrain.BestAction);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
+            }
+
+            _state = newState;
         }
 
         public void DoWork()
@@ -55,8 +81,8 @@ namespace Controllers
 
         public void DoEat()
         {
-            _statsController.Hunger -= 30;
-            _statsController.Money -= 10;
+            _statsController.Hunger -= 20;
+            _statsController.Money -= 200;
 
             DecideNewAction();
         }
@@ -72,6 +98,7 @@ namespace Controllers
         {
             yield return new WaitForSeconds(_workTimeSeconds);
             _inventoryController.AddResource(ResourceType.Wood, 10);
+            _statsController.Money += 100;
 
             DecideNewAction();
         }
@@ -79,14 +106,24 @@ namespace Controllers
         private IEnumerator SleepRoutine()
         {
             yield return new WaitForSeconds(_sleepTimeSeconds);
-            _statsController.Energy++;
+            _statsController.Energy += 5;
 
             DecideNewAction();
         }
 
         private void DecideNewAction()
         {
-            _aiBrain.DecideBestAction(_actions);
+            ChangeState(NpcState.Deciding);
+        }
+
+        public Vector3 GetSleepPosition()
+        {
+            return Vector3.zero;
+        }
+
+        public Vector3 GetWorkPosition()
+        {
+            return new Vector3(-5f, 0f, -5f);
         }
     }
 }
