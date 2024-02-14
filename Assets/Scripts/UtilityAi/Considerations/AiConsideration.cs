@@ -4,11 +4,17 @@ using UnityEngine;
 
 namespace UtilityAi.Considerations
 {
-    public abstract class AiConsideration : ScriptableObject
+    public abstract class AiConsideration
     {
-        [SerializeField] private AnimationCurve _responseCurve;
+        private readonly AnimationCurve _responseCurve;
 
-        public string Name;
+        public string Name { get; }
+
+        protected AiConsideration(string name, AnimationCurve responseCurve)
+        {
+            Name = name;
+            _responseCurve = responseCurve;
+        }
 
         public float ScoreConsideration(NpcController npcController)
         {

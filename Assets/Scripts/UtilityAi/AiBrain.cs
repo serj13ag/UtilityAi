@@ -2,14 +2,16 @@ using System;
 using Controllers;
 using UnityEngine;
 using UtilityAi.Actions;
+using UtilityAi.Data;
 
 namespace UtilityAi
 {
     public class AiBrain : MonoBehaviour
     {
         [SerializeField] private NpcController _npcController;
-        [SerializeField] private AiAction[] _actions;
+        [SerializeField] private AiActionData[] _actionsData;
 
+        private AiAction[] _actions;
         private AiAction _bestAction;
 
         public AiAction BestAction
@@ -23,6 +25,11 @@ namespace UtilityAi
         }
 
         public event Action OnBestActionDecided;
+
+        private void Awake()
+        {
+            _actions = AiActionFactory.CreateActions(_actionsData);
+        }
 
         public void UpdateBestAction()
         {

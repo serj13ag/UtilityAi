@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 787b6d4194d24bc78bef2815751f3c05, type: 3}
-  m_Name: Eat_Hunger
+  m_Script: {fileID: 11500000, guid: 39763630c793477f8c8388bb10440140, type: 3}
+  m_Name: EatHunger
   m_EditorClassIdentifier: 
-  _responseCurve:
+  Name: EatHunger
+  Type: 2
+  ResponseCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -36,4 +38,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Name: Hunger

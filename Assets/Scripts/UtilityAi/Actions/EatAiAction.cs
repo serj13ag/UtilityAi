@@ -1,11 +1,14 @@
 using Controllers;
-using UnityEngine;
+using UtilityAi.Considerations;
 
 namespace UtilityAi.Actions
 {
-    [CreateAssetMenu(fileName = "Eat", menuName = "UtilityAi/Actions/Eat")]
     public class EatAiAction : AiAction
     {
+        public EatAiAction(string name, AiConsideration[] considerations) : base(name, considerations)
+        {
+        }
+
         public override void Execute(NpcController npcController)
         {
             npcController.DoEat();

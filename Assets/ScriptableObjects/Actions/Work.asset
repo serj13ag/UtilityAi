@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcc9b8d202944dbf934257b10a63a67e, type: 3}
+  m_Script: {fileID: 11500000, guid: f42601bf107344b0a9aa060c5cea6a6c, type: 3}
   m_Name: Work
   m_EditorClassIdentifier: 
   Name: Work
-  Score: 0
+  Type: 3
   Considerations:
-  - {fileID: 11400000, guid: b7e08187e59cf2142a387e7d69c8fbcc, type: 2}
+  - {fileID: 11400000, guid: 17b902c0ad3c37a47bdde9b2bd661cf5, type: 2}

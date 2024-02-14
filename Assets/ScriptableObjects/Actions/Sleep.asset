@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10067fbcf3f4d319166d05e5697ab63, type: 3}
+  m_Script: {fileID: 11500000, guid: f42601bf107344b0a9aa060c5cea6a6c, type: 3}
   m_Name: Sleep
   m_EditorClassIdentifier: 
   Name: Sleep
-  Score: 0
+  Type: 2
   Considerations:
-  - {fileID: 11400000, guid: bcd0b0a4c96d6ae4aa810b016be72d07, type: 2}
+  - {fileID: 11400000, guid: bc188217aec5dd041ae29ba701aee0d4, type: 2}

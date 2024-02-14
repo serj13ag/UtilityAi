@@ -1,11 +1,14 @@
 using Controllers;
-using UnityEngine;
+using UtilityAi.Considerations;
 
 namespace UtilityAi.Actions
 {
-    [CreateAssetMenu(fileName = "Sleep", menuName = "UtilityAi/Actions/Sleep")]
     public class SleepAiAction : AiAction
     {
+        public SleepAiAction(string name, AiConsideration[] considerations) : base(name, considerations)
+        {
+        }
+
         public override void Execute(NpcController npcController)
         {
             npcController.DoSleep();

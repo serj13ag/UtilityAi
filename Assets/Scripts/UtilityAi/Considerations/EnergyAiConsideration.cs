@@ -3,9 +3,12 @@ using UnityEngine;
 
 namespace UtilityAi.Considerations
 {
-    [CreateAssetMenu(fileName = "Energy", menuName = "UtilityAi/Considerations/Energy")]
     public class EnergyAiConsideration : AiConsideration
     {
+        public EnergyAiConsideration(string name, AnimationCurve responseCurve) : base(name, responseCurve)
+        {
+        }
+
         protected override float GetValue(NpcController npcController)
         {
             return npcController.Stats.Energy / 100f;

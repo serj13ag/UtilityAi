@@ -1,11 +1,14 @@
 using Controllers;
-using UnityEngine;
+using UtilityAi.Considerations;
 
 namespace UtilityAi.Actions
 {
-    [CreateAssetMenu(fileName = "Work", menuName = "UtilityAi/Actions/Work")]
     public class WorkAiAction : AiAction
     {
+        public WorkAiAction(string name, AiConsideration[] considerations) : base(name, considerations)
+        {
+        }
+
         public override void Execute(NpcController npcController)
         {
             npcController.DoWork();

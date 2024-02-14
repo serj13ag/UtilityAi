@@ -2035,10 +2035,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcController: {fileID: 2137896832}
-  _actions:
-  - {fileID: 11400000, guid: bd3a429bd40cb2c44aad356c8a7e82f9, type: 2}
-  - {fileID: 11400000, guid: 56f0947fbeb68844ca004382bcd840a3, type: 2}
-  - {fileID: 11400000, guid: 155180a1814c73146a56b4b8290f20da, type: 2}
+  _actionsData:
+  - {fileID: 11400000, guid: 42add798b2bd3e542a7490b306aca221, type: 2}
+  - {fileID: 11400000, guid: 22f547122b64d5d4c8106ce2240f3053, type: 2}
+  - {fileID: 11400000, guid: 34ff4632e1d7cec4894f3b7094c2903e, type: 2}
 --- !u!114 &2137896835
 MonoBehaviour:
   m_ObjectHideFlags: 0
