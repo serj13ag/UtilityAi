@@ -24,7 +24,25 @@ namespace UtilityAi
 
         public event Action OnBestActionDecided;
 
-        private float ScoreAction(AiAction action)
+        public void UpdateBestAction()
+        {
+            var bestScore = 0f;
+            var bestActionIndex = 0;
+            for (var i = 0; i < _actions.Length; i++)
+            {
+                var score = CalculateScore(_actions[i]);
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    bestActionIndex = i;
+                }
+            }
+
+            BestAction = _actions[bestActionIndex];
+            BestAction.SetDestinationPosition(_npcController);
+        }
+
+        private float CalculateScore(AiAction action)
         {
             var score = 1f;
 
@@ -35,8 +53,7 @@ namespace UtilityAi
 
                 if (score == 0)
                 {
-                    action.Score = 0;
-                    return action.Score;
+                    return score;
                 }
             }
 
@@ -44,26 +61,9 @@ namespace UtilityAi
             var modFactor = 1 - 1 / action.Considerations.Length;
             var makeUpValue = (1 - originalScore) * modFactor;
 
-            action.Score = originalScore + makeUpValue * originalScore;
+            score = originalScore + makeUpValue * originalScore;
 
-            return action.Score;
-        }
-
-        public void DecideBestAction()
-        {
-            var bestScore = 0f;
-            var bestActionIndex = 0;
-            for (var i = 0; i < _actions.Length; i++)
-            {
-                if (ScoreAction(_actions[i]) > bestScore)
-                {
-                    bestScore = _actions[i].Score;
-                    bestActionIndex = i;
-                }
-            }
-
-            BestAction = _actions[bestActionIndex];
-            BestAction.SetDestinationPosition(_npcController);
+            return score;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Controllers.NpcStates
 
         public void Update(float deltaTime)
         {
-            _aiBrain.DecideBestAction();
+            _aiBrain.UpdateBestAction();
 
             if (_aiBrain.BestAction.DestinationPosition.HasValue
                 && Vector3.Distance(_aiBrain.BestAction.DestinationPosition.Value, _npcController.transform.position) > 1f)

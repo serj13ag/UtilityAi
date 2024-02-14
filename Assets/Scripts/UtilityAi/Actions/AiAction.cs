@@ -9,7 +9,6 @@ namespace UtilityAi.Actions
         public string Name;
         public AiConsideration[] Considerations;
 
-        public float Score { get; set; }
         public Vector3? DestinationPosition { get; protected set; }
 
         public abstract void Execute(NpcController npcController);
