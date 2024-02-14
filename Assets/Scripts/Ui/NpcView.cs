@@ -20,7 +20,7 @@ namespace Ui
             _moneyText.text = npcStatsController.Money.ToString();
         }
 
-        public void UpdateBestAction(AiAction action)
+        public void UpdateBestAction(IAiAction action)
         {
             _bestActionText.text = action.Name;
         }

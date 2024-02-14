@@ -1,10 +1,13 @@
 using Controllers;
+using UnityEngine;
 using UtilityAi.Considerations;
 
 namespace UtilityAi.Actions
 {
-    public class WorkAiAction : AiAction
+    public class WorkAiAction : AiAction, IAiActionWithDestination
     {
+        public Vector3 DestinationPosition { get; private set; }
+
         public WorkAiAction(string name, AiConsideration[] considerations) : base(name, considerations)
         {
         }
@@ -14,7 +17,7 @@ namespace UtilityAi.Actions
             npcController.DoWork();
         }
 
-        public override void SetDestinationPosition(NpcController npcController)
+        public void SetDestinationPosition(NpcController npcController)
         {
             DestinationPosition = npcController.GetWorkPosition();
         }

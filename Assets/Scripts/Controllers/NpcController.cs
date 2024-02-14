@@ -5,6 +5,7 @@ using Entities;
 using Ui;
 using UnityEngine;
 using UtilityAi;
+using UtilityAi.Actions;
 
 namespace Controllers
 {
@@ -54,7 +55,7 @@ namespace Controllers
                     newState = new DecidingNpcState(this, _aiBrain);
                     break;
                 case NpcState.Moving:
-                    newState = new MovingNpcState(this, _moveController, _aiBrain.BestAction.DestinationPosition);
+                    newState = new MovingNpcState(this, _moveController, ((IAiActionWithDestination)_aiBrain.BestAction).DestinationPosition);
                     break;
                 case NpcState.Executing:
                     newState = new ExecutingNpcState(this, _aiBrain.BestAction);

@@ -13,9 +13,5 @@ namespace UtilityAi.Actions
         {
             npcController.DoEat();
         }
-
-        public override void SetDestinationPosition(NpcController npcController)
-        {
-        }
     }
 }

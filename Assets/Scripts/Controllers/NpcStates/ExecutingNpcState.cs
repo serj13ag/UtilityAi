@@ -5,9 +5,9 @@ namespace Controllers.NpcStates
     public class ExecutingNpcState : INpcState
     {
         private readonly NpcController _npcController;
-        private readonly AiAction _action;
+        private readonly IAiAction _action;
 
-        public ExecutingNpcState(NpcController npcController, AiAction action)
+        public ExecutingNpcState(NpcController npcController, IAiAction action)
         {
             _npcController = npcController;
             _action = action;

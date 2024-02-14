@@ -11,10 +11,10 @@ namespace UtilityAi
         [SerializeField] private NpcController _npcController;
         [SerializeField] private AiActionData[] _actionsData;
 
-        private AiAction[] _actions;
-        private AiAction _bestAction;
+        private IAiAction[] _actions;
+        private IAiAction _bestAction;
 
-        public AiAction BestAction
+        public IAiAction BestAction
         {
             get => _bestAction;
             private set
@@ -46,10 +46,14 @@ namespace UtilityAi
             }
 
             BestAction = _actions[bestActionIndex];
-            BestAction.SetDestinationPosition(_npcController);
+
+            if (BestAction is IAiActionWithDestination actionWithDestination)
+            {
+                actionWithDestination.SetDestinationPosition(_npcController);
+            }
         }
 
-        private float CalculateScore(AiAction action)
+        private float CalculateScore(IAiAction action)
         {
             var score = 1f;
 

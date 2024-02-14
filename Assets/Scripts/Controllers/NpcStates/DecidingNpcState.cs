@@ -1,5 +1,6 @@
 using UnityEngine;
 using UtilityAi;
+using UtilityAi.Actions;
 
 namespace Controllers.NpcStates
 {
@@ -18,8 +19,8 @@ namespace Controllers.NpcStates
         {
             _aiBrain.UpdateBestAction();
 
-            if (_aiBrain.BestAction.DestinationPosition.HasValue
-                && Vector3.Distance(_aiBrain.BestAction.DestinationPosition.Value, _npcController.transform.position) > 1f)
+            if (_aiBrain.BestAction is IAiActionWithDestination actionWithDestination
+                && Vector3.Distance(actionWithDestination.DestinationPosition, _npcController.transform.position) > 1f)
             {
                 _npcController.ChangeState(NpcState.Moving);
             }

@@ -7,9 +7,9 @@ namespace UtilityAi
 {
     public static class AiActionFactory
     {
-        public static AiAction[] CreateActions(AiActionData[] actionsData)
+        public static IAiAction[] CreateActions(AiActionData[] actionsData)
         {
-            var actions = new AiAction[actionsData.Length];
+            var actions = new IAiAction[actionsData.Length];
 
             for (var i = 0; i < actionsData.Length; i++)
             {
@@ -17,7 +17,7 @@ namespace UtilityAi
 
                 var considerations = CreateConsiderations(actionData.Considerations);
 
-                AiAction aiAction;
+                IAiAction aiAction;
                 switch (actionData.Type)
                 {
                     case AiActionType.Eat:
