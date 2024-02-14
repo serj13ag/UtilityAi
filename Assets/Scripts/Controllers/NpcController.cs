@@ -5,7 +5,6 @@ using Entities;
 using Ui;
 using UnityEngine;
 using UtilityAi;
-using UtilityAi.Actions;
 
 namespace Controllers
 {
@@ -20,8 +19,6 @@ namespace Controllers
 
         [SerializeField] private float _workTimeSeconds;
         [SerializeField] private float _sleepTimeSeconds;
-
-        [SerializeField] private AiAction[] _actions;
 
         private INpcState _state;
 
@@ -54,7 +51,7 @@ namespace Controllers
             switch (state)
             {
                 case NpcState.Deciding:
-                    newState = new DecidingNpcState(this, _aiBrain, _actions);
+                    newState = new DecidingNpcState(this, _aiBrain);
                     break;
                 case NpcState.Moving:
                     newState = new MovingNpcState(this, _moveController, _aiBrain.BestAction.DestinationPosition);

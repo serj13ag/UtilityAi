@@ -8,6 +8,7 @@ namespace UtilityAi
     public class AiBrain : MonoBehaviour
     {
         [SerializeField] private NpcController _npcController;
+        [SerializeField] private AiAction[] _actions;
 
         private AiAction _bestAction;
 
@@ -48,20 +49,20 @@ namespace UtilityAi
             return action.Score;
         }
 
-        public void DecideBestAction(AiAction[] actions)
+        public void DecideBestAction()
         {
             var bestScore = 0f;
             var bestActionIndex = 0;
-            for (var i = 0; i < actions.Length; i++)
+            for (var i = 0; i < _actions.Length; i++)
             {
-                if (ScoreAction(actions[i]) > bestScore)
+                if (ScoreAction(_actions[i]) > bestScore)
                 {
-                    bestScore = actions[i].Score;
+                    bestScore = _actions[i].Score;
                     bestActionIndex = i;
                 }
             }
 
-            BestAction = actions[bestActionIndex];
+            BestAction = _actions[bestActionIndex];
             BestAction.SetDestinationPosition(_npcController);
         }
     }

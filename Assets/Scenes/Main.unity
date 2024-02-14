@@ -2009,10 +2009,6 @@ MonoBehaviour:
   _aiBrain: {fileID: 2137896834}
   _workTimeSeconds: 5
   _sleepTimeSeconds: 10
-  _actions:
-  - {fileID: 11400000, guid: bd3a429bd40cb2c44aad356c8a7e82f9, type: 2}
-  - {fileID: 11400000, guid: 56f0947fbeb68844ca004382bcd840a3, type: 2}
-  - {fileID: 11400000, guid: 155180a1814c73146a56b4b8290f20da, type: 2}
 --- !u!114 &2137896833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2039,6 +2035,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcController: {fileID: 2137896832}
+  _actions:
+  - {fileID: 11400000, guid: bd3a429bd40cb2c44aad356c8a7e82f9, type: 2}
+  - {fileID: 11400000, guid: 56f0947fbeb68844ca004382bcd840a3, type: 2}
+  - {fileID: 11400000, guid: 155180a1814c73146a56b4b8290f20da, type: 2}
 --- !u!114 &2137896835
 MonoBehaviour:
   m_ObjectHideFlags: 0
