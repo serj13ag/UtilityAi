@@ -55,26 +55,25 @@ namespace UtilityAi
 
         private float CalculateScore(IAiAction action)
         {
-            var score = 1f;
+            var actionScore = 1f;
+            var modFactor = 1 - 1f / action.Considerations.Length;
 
             foreach (var consideration in action.Considerations)
             {
                 var considerationScore = consideration.ScoreConsideration(_npcController);
-                score *= considerationScore;
 
-                if (score == 0)
+                var makeUpValue = (1 - considerationScore) * modFactor;
+                var finalConsiderationScore = considerationScore + makeUpValue * considerationScore;
+
+                actionScore *= finalConsiderationScore;
+
+                if (actionScore == 0)
                 {
-                    return score;
+                    return actionScore;
                 }
             }
 
-            var originalScore = score;
-            var modFactor = 1 - 1 / action.Considerations.Length;
-            var makeUpValue = (1 - originalScore) * modFactor;
-
-            score = originalScore + makeUpValue * originalScore;
-
-            return score;
+            return actionScore;
         }
     }
 }
