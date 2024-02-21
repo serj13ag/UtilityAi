@@ -1,4 +1,3 @@
-using Controllers;
 using UtilityAi.Considerations;
 
 namespace UtilityAi.Actions
@@ -8,6 +7,6 @@ namespace UtilityAi.Actions
         string Name { get; }
         AiConsideration[] Considerations { get; }
 
-        void Execute(NpcController npcController);
+        void Execute();
     }
 }

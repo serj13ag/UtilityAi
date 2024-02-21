@@ -28,7 +28,7 @@ namespace UtilityAi
 
         private void Awake()
         {
-            _actions = AiActionFactory.CreateActions(_actionsData);
+            _actions = AiActionFactory.CreateActions(_actionsData, _npcController);
         }
 
         public void UpdateBestAction()
@@ -49,7 +49,7 @@ namespace UtilityAi
 
             if (BestAction is IAiActionWithDestination actionWithDestination)
             {
-                actionWithDestination.SetDestinationPosition(_npcController);
+                actionWithDestination.SetDestinationPosition();
             }
         }
 

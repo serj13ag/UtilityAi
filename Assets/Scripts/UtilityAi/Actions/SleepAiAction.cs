@@ -1,4 +1,4 @@
-using Controllers;
+using Controllers.Interfaces;
 using UnityEngine;
 using UtilityAi.Considerations;
 
@@ -6,20 +6,24 @@ namespace UtilityAi.Actions
 {
     public class SleepAiAction : AiAction, IAiActionWithDestination
     {
+        private readonly ISleeper _sleeper;
+
         public Vector3 DestinationPosition { get; private set; }
 
-        public SleepAiAction(string name, AiConsideration[] considerations) : base(name, considerations)
+        public SleepAiAction(string name, AiConsideration[] considerations, ISleeper sleeper)
+            : base(name, considerations)
         {
+            _sleeper = sleeper;
         }
 
-        public override void Execute(NpcController npcController)
+        public override void Execute()
         {
-            npcController.DoSleep();
+            _sleeper.DoSleep();
         }
 
-        public void SetDestinationPosition(NpcController npcController)
+        public void SetDestinationPosition()
         {
-            DestinationPosition = npcController.GetSleepPosition();
+            DestinationPosition = _sleeper.GetSleepPosition();
         }
     }
 }

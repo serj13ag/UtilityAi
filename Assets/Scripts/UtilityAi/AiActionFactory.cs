@@ -1,4 +1,5 @@
 using System;
+using Controllers;
 using UtilityAi.Actions;
 using UtilityAi.Considerations;
 using UtilityAi.Data;
@@ -7,7 +8,7 @@ namespace UtilityAi
 {
     public static class AiActionFactory
     {
-        public static IAiAction[] CreateActions(AiActionData[] actionsData)
+        public static IAiAction[] CreateActions(AiActionData[] actionsData, NpcController npcController)
         {
             var actions = new IAiAction[actionsData.Length];
 
@@ -21,13 +22,13 @@ namespace UtilityAi
                 switch (actionData.Type)
                 {
                     case AiActionType.Eat:
-                        aiAction = new EatAiAction(actionData.Name, considerations);
+                        aiAction = new EatAiAction(actionData.Name, considerations, npcController);
                         break;
                     case AiActionType.Sleep:
-                        aiAction = new SleepAiAction(actionData.Name, considerations);
+                        aiAction = new SleepAiAction(actionData.Name, considerations, npcController);
                         break;
                     case AiActionType.Work:
-                        aiAction = new WorkAiAction(actionData.Name, considerations);
+                        aiAction = new WorkAiAction(actionData.Name, considerations, npcController);
                         break;
                     case AiActionType.Undefined:
                     default:

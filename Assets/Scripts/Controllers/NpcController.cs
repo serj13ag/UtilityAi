@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Controllers.Interfaces;
 using Controllers.NpcStates;
 using Entities;
 using Ui;
@@ -9,7 +10,7 @@ using UtilityAi.Actions;
 
 namespace Controllers
 {
-    public class NpcController : MonoBehaviour
+    public class NpcController : MonoBehaviour, IEater, ISleeper, IWorker
     {
         [SerializeField] private NpcView _npcView;
 
@@ -58,13 +59,23 @@ namespace Controllers
                     newState = new MovingNpcState(this, _moveController, ((IAiActionWithDestination)_aiBrain.BestAction).DestinationPosition);
                     break;
                 case NpcState.Executing:
-                    newState = new ExecutingNpcState(this, _aiBrain.BestAction);
+                    newState = new ExecutingNpcState(_aiBrain.BestAction);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
 
             _state = newState;
+        }
+
+        public Vector3 GetSleepPosition()
+        {
+            return Vector3.zero;
+        }
+
+        public Vector3 GetWorkPosition()
+        {
+            return new Vector3(-5f, 0f, -5f);
         }
 
         public void DoWork()
@@ -87,7 +98,7 @@ namespace Controllers
 
         private void AiBrain_OnBestActionDecided()
         {
-            _aiBrain.BestAction.Execute(this);
+            _aiBrain.BestAction.Execute();
 
             _npcView.UpdateBestAction(_aiBrain.BestAction);
         }
@@ -112,16 +123,6 @@ namespace Controllers
         private void DecideNewAction()
         {
             ChangeState(NpcState.Deciding);
-        }
-
-        public Vector3 GetSleepPosition()
-        {
-            return Vector3.zero;
-        }
-
-        public Vector3 GetWorkPosition()
-        {
-            return new Vector3(-5f, 0f, -5f);
         }
     }
 }

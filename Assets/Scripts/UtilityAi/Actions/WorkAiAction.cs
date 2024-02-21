@@ -1,4 +1,5 @@
 using Controllers;
+using Controllers.Interfaces;
 using UnityEngine;
 using UtilityAi.Considerations;
 
@@ -6,20 +7,24 @@ namespace UtilityAi.Actions
 {
     public class WorkAiAction : AiAction, IAiActionWithDestination
     {
+        private readonly IWorker _worker;
+
         public Vector3 DestinationPosition { get; private set; }
 
-        public WorkAiAction(string name, AiConsideration[] considerations) : base(name, considerations)
+        public WorkAiAction(string name, AiConsideration[] considerations, IWorker worker)
+            : base(name, considerations)
         {
+            _worker = worker;
         }
 
-        public override void Execute(NpcController npcController)
+        public override void Execute()
         {
-            npcController.DoWork();
+            _worker.DoWork();
         }
 
-        public void SetDestinationPosition(NpcController npcController)
+        public void SetDestinationPosition()
         {
-            DestinationPosition = npcController.GetWorkPosition();
+            DestinationPosition = _worker.GetWorkPosition();
         }
     }
 }

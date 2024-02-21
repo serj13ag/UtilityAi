@@ -1,4 +1,3 @@
-using Controllers;
 using UnityEngine;
 
 namespace UtilityAi.Actions
@@ -7,6 +6,6 @@ namespace UtilityAi.Actions
     {
         Vector3 DestinationPosition { get; }
 
-        void SetDestinationPosition(NpcController npcController);
+        void SetDestinationPosition();
     }
 }
