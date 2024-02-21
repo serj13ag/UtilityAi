@@ -6,6 +6,10 @@ namespace Controllers
 {
     public class NpcStatsController : MonoBehaviour
     {
+        private const int MaxEnergy = 100;
+        private const int MaxHunger = 100;
+        private const int MaxMoney = 1000;
+        
         [SerializeField] private NpcView _npcView;
 
         [SerializeField] private float _decreaseEnergyTimeout;
@@ -23,7 +27,7 @@ namespace Controllers
             get => _energy;
             set
             {
-                _energy = Math.Clamp(value, 0, 100);
+                _energy = Math.Clamp(value, 0, MaxEnergy);
                 _npcView.UpdateStats(this);
             }
         }
@@ -33,7 +37,7 @@ namespace Controllers
             get => _hunger;
             set
             {
-                _hunger = Math.Clamp(value, 0, 100);
+                _hunger = Math.Clamp(value, 0, MaxHunger);
                 _npcView.UpdateStats(this);
             }
         }
@@ -43,7 +47,7 @@ namespace Controllers
             get => _money;
             set
             {
-                _money = Math.Clamp(value, 0, 1000);
+                _money = Math.Clamp(value, 0, MaxMoney);
                 _npcView.UpdateStats(this);
             }
         }
