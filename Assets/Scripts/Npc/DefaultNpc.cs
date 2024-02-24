@@ -19,14 +19,15 @@ namespace Npc
 
         private NpcStateBlock _stateBlock;
 
+        public NpcInventory Inventory => _inventory;
+        public NpcStats Stats => _stats;
+
         public float WorkTimeSeconds => _workTimeSeconds;
         public float SleepTimeSeconds => _sleepTimeSeconds;
 
         public float HungerNormalized => _stats.HungerNormalized;
         public float EnergyNormalized => _stats.EnergyNormalized;
         public float MoneyNormalized => _stats.MoneyNormalized;
-        public NpcInventory Inventory => _inventory;
-        public NpcStats Stats => _stats;
 
         private void Awake()
         {
