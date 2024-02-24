@@ -16,7 +16,7 @@ namespace UtilityAi
             {
                 var actionData = actionsData[i];
 
-                var considerations = CreateConsiderations(actionData.Considerations);
+                var considerations = CreateConsiderations(actionData.Considerations, npcController);
 
                 IAiAction aiAction;
                 switch (actionData.Type)
@@ -41,7 +41,8 @@ namespace UtilityAi
             return actions;
         }
 
-        private static AiConsideration[] CreateConsiderations(AiConsiderationData[] considerationsData)
+        private static AiConsideration[] CreateConsiderations(AiConsiderationData[] considerationsData,
+            NpcController npcController)
         {
             var considerations = new AiConsideration[considerationsData.Length];
             for (var i = 0; i < considerationsData.Length; i++)
@@ -52,13 +53,13 @@ namespace UtilityAi
                 switch (considerationData.Type)
                 {
                     case AiConsiderationType.Energy:
-                        consideration = new EnergyAiConsideration(considerationData.Name, considerationData.ResponseCurve);
+                        consideration = new EnergyAiConsideration(considerationData.Name, considerationData.ResponseCurve, npcController);
                         break;
                     case AiConsiderationType.Hunger:
-                        consideration = new HungerAiConsideration(considerationData.Name, considerationData.ResponseCurve);
+                        consideration = new HungerAiConsideration(considerationData.Name, considerationData.ResponseCurve, npcController);
                         break;
                     case AiConsiderationType.Money:
-                        consideration = new MoneyAiConsideration(considerationData.Name, considerationData.ResponseCurve);
+                        consideration = new MoneyAiConsideration(considerationData.Name, considerationData.ResponseCurve, npcController);
                         break;
                     case AiConsiderationType.Undefined:
                     default:

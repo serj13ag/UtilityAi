@@ -52,6 +52,10 @@ namespace Controllers
             }
         }
 
+        public float MoneyNormalized => (float)_money / MaxMoney;
+        public float EnergyNormalized => (float)_energy / MaxEnergy;
+        public float HungerNormalized => (float)_hunger / MaxHunger;
+
         private void Start()
         {
             _energy = 100;

@@ -1,17 +1,21 @@
-using Controllers;
+using Controllers.Interfaces;
 using UnityEngine;
 
 namespace UtilityAi.Considerations
 {
     public class HungerAiConsideration : AiConsideration
     {
-        public HungerAiConsideration(string name, AnimationCurve responseCurve) : base(name, responseCurve)
+        private readonly IEntityWithHunger _entityWithHunger;
+
+        public HungerAiConsideration(string name, AnimationCurve responseCurve, IEntityWithHunger entityWithHunger)
+            : base(name, responseCurve)
         {
+            _entityWithHunger = entityWithHunger;
         }
 
-        protected override float GetValue(NpcController npcController)
+        protected override float GetNormalizedValue()
         {
-            return npcController.Stats.Hunger / 100f;
+            return _entityWithHunger.HungerNormalized;
         }
     }
 }

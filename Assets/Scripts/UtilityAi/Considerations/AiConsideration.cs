@@ -16,12 +16,12 @@ namespace UtilityAi.Considerations
             _responseCurve = responseCurve;
         }
 
-        public float ScoreConsideration(NpcController npcController)
+        public float ScoreConsideration()
         {
-            var clampedValue = Math.Clamp(GetValue(npcController), 0f, 1f);
-            return _responseCurve.Evaluate(clampedValue);
+            var value = GetNormalizedValue();
+            return _responseCurve.Evaluate(value);
         }
 
-        protected abstract float GetValue(NpcController npcController);
+        protected abstract float GetNormalizedValue();
     }
 }

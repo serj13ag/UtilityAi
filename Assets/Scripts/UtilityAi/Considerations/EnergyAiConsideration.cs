@@ -1,17 +1,21 @@
-using Controllers;
+using Controllers.Interfaces;
 using UnityEngine;
 
 namespace UtilityAi.Considerations
 {
     public class EnergyAiConsideration : AiConsideration
     {
-        public EnergyAiConsideration(string name, AnimationCurve responseCurve) : base(name, responseCurve)
+        private readonly IEntityWithEnergy _entityWithEnergy;
+
+        public EnergyAiConsideration(string name, AnimationCurve responseCurve, IEntityWithEnergy entityWithEnergy)
+            : base(name, responseCurve)
         {
+            _entityWithEnergy = entityWithEnergy;
         }
 
-        protected override float GetValue(NpcController npcController)
+        protected override float GetNormalizedValue()
         {
-            return npcController.Stats.Energy / 100f;
+            return _entityWithEnergy.EnergyNormalized;
         }
     }
 }

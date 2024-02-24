@@ -1,17 +1,21 @@
-using Controllers;
+using Controllers.Interfaces;
 using UnityEngine;
 
 namespace UtilityAi.Considerations
 {
     public class MoneyAiConsideration : AiConsideration
     {
-        public MoneyAiConsideration(string name, AnimationCurve responseCurve) : base(name, responseCurve)
+        private readonly IEntityWithMoney _entityWithMoney;
+
+        public MoneyAiConsideration(string name, AnimationCurve responseCurve, IEntityWithMoney entityWithMoney)
+            : base(name, responseCurve)
         {
+            _entityWithMoney = entityWithMoney;
         }
 
-        protected override float GetValue(NpcController npcController)
+        protected override float GetNormalizedValue()
         {
-            return npcController.Stats.Money / 1000f;
+            return _entityWithMoney.MoneyNormalized;
         }
     }
 }

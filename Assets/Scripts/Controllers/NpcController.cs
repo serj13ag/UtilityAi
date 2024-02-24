@@ -10,7 +10,9 @@ using UtilityAi.Actions;
 
 namespace Controllers
 {
-    public class NpcController : MonoBehaviour, IEater, ISleeper, IWorker
+    public class NpcController : MonoBehaviour,
+        IEater, ISleeper, IWorker,
+        IEntityWithHunger, IEntityWithEnergy, IEntityWithMoney
     {
         [SerializeField] private NpcView _npcView;
 
@@ -24,7 +26,9 @@ namespace Controllers
 
         private INpcState _state;
 
-        public NpcStatsController Stats => _statsController;
+        public float HungerNormalized => _statsController.HungerNormalized;
+        public float EnergyNormalized => _statsController.EnergyNormalized;
+        public float MoneyNormalized => _statsController.MoneyNormalized;
 
         private void OnEnable()
         {
