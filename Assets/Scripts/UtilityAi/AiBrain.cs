@@ -1,7 +1,6 @@
 using System;
 using Npc;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UtilityAi.Actions;
 using UtilityAi.Data;
 
@@ -9,30 +8,20 @@ namespace UtilityAi
 {
     public class AiBrain : MonoBehaviour
     {
-        [FormerlySerializedAs("_npcController")] [SerializeField] private DefaultNpc _npc;
+        [SerializeField] private DefaultNpc _npc;
         [SerializeField] private AiActionData[] _actionsData;
 
         private IAiAction[] _actions;
         private IAiAction _bestAction;
 
-        public IAiAction BestAction
-        {
-            get => _bestAction;
-            private set
-            {
-                _bestAction = value;
-                OnBestActionDecided?.Invoke();
-            }
-        }
-
-        public event Action OnBestActionDecided;
+        public event Action<IAiAction> OnBestActionDecided;
 
         private void Awake()
         {
             _actions = AiActionFactory.CreateActions(_actionsData, _npc);
         }
 
-        public void UpdateBestAction()
+        public IAiAction UpdateBestAction()
         {
             var bestScore = 0f;
             var bestActionIndex = 0;
@@ -46,12 +35,18 @@ namespace UtilityAi
                 }
             }
 
-            BestAction = _actions[bestActionIndex];
+            var bestAction = _actions[bestActionIndex];
 
-            if (BestAction is IAiActionWithDestination actionWithDestination)
+            if (bestAction is IAiActionWithDestination actionWithDestination)
             {
                 actionWithDestination.SetDestinationPosition();
             }
+
+            _bestAction = bestAction;
+
+            OnBestActionDecided?.Invoke(bestAction);
+
+            return bestAction;
         }
 
         private static float CalculateScore(IAiAction action)

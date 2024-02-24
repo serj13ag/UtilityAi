@@ -1,5 +1,4 @@
 using System;
-using Ui;
 using UnityEngine;
 
 namespace Npc
@@ -9,8 +8,6 @@ namespace Npc
         private const int MaxEnergy = 100;
         private const int MaxHunger = 100;
         private const int MaxMoney = 1000;
-        
-        [SerializeField] private NpcView _npcView;
 
         [SerializeField] private float _decreaseEnergyTimeout;
         [SerializeField] private float _increaseHungerTimeout;
@@ -28,7 +25,7 @@ namespace Npc
             set
             {
                 _energy = Math.Clamp(value, 0, MaxEnergy);
-                _npcView.UpdateStats(this);
+                OnStatsUpdated?.Invoke();
             }
         }
 
@@ -38,7 +35,7 @@ namespace Npc
             set
             {
                 _hunger = Math.Clamp(value, 0, MaxHunger);
-                _npcView.UpdateStats(this);
+                OnStatsUpdated?.Invoke();
             }
         }
 
@@ -48,13 +45,15 @@ namespace Npc
             set
             {
                 _money = Math.Clamp(value, 0, MaxMoney);
-                _npcView.UpdateStats(this);
+                OnStatsUpdated?.Invoke();
             }
         }
 
         public float MoneyNormalized => (float)_money / MaxMoney;
         public float EnergyNormalized => (float)_energy / MaxEnergy;
         public float HungerNormalized => (float)_hunger / MaxHunger;
+
+        public event Action OnStatsUpdated;
 
         private void Start()
         {
@@ -64,33 +63,25 @@ namespace Npc
 
             _timeTillDecreaseEnergy = _decreaseEnergyTimeout;
             _timeTillIncreaseHunger = _increaseHungerTimeout;
-
-            _npcView.UpdateStats(this);
         }
 
-        public void UpdateStats(float deltaTime)
-        {
-            UpdateEnergy(deltaTime);
-            UpdateHunger(deltaTime);
-        }
-
-        private void UpdateHunger(float deltaTime)
-        {
-            _timeTillIncreaseHunger -= deltaTime;
-            if (_timeTillIncreaseHunger < 0)
-            {
-                Hunger++;
-                _timeTillIncreaseHunger = _increaseHungerTimeout;
-            }
-        }
-
-        private void UpdateEnergy(float deltaTime)
+        public void TickEnergy(float deltaTime)
         {
             _timeTillDecreaseEnergy -= deltaTime;
             if (_timeTillDecreaseEnergy < 0)
             {
                 Energy--;
                 _timeTillDecreaseEnergy = _decreaseEnergyTimeout;
+            }
+        }
+
+        public void TickHunger(float deltaTime)
+        {
+            _timeTillIncreaseHunger -= deltaTime;
+            if (_timeTillIncreaseHunger < 0)
+            {
+                Hunger++;
+                _timeTillIncreaseHunger = _increaseHungerTimeout;
             }
         }
     }

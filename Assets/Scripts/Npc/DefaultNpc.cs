@@ -1,12 +1,7 @@
-using System;
-using System.Collections;
-using Entities;
 using Npc.Interfaces;
 using Npc.NpcStates;
-using Ui;
 using UnityEngine;
 using UtilityAi;
-using UtilityAi.Actions;
 
 namespace Npc
 {
@@ -14,8 +9,6 @@ namespace Npc
         IEater, ISleeper, IWorker,
         IEntityWithHunger, IEntityWithEnergy, IEntityWithMoney
     {
-        [SerializeField] private NpcView _npcView;
-
         [SerializeField] private NpcMover _mover;
         [SerializeField] private NpcStats _stats;
         [SerializeField] private NpcInventory _inventory;
@@ -24,72 +17,50 @@ namespace Npc
         [SerializeField] private float _workTimeSeconds;
         [SerializeField] private float _sleepTimeSeconds;
 
-        private INpcState _state;
+        private NpcStateBlock _stateBlock;
+
+        public float WorkTimeSeconds => _workTimeSeconds;
+        public float SleepTimeSeconds => _sleepTimeSeconds;
 
         public float HungerNormalized => _stats.HungerNormalized;
         public float EnergyNormalized => _stats.EnergyNormalized;
         public float MoneyNormalized => _stats.MoneyNormalized;
+        public NpcInventory Inventory => _inventory;
+        public NpcStats Stats => _stats;
 
-        private void OnEnable()
+        private void Awake()
         {
-            _aiBrain.OnBestActionDecided += AiBrain_OnBestActionDecided;
-        }
-
-        private void OnDisable()
-        {
-            _aiBrain.OnBestActionDecided -= AiBrain_OnBestActionDecided;
+            _stateBlock = new NpcStateBlock(this, _aiBrain, _mover);
         }
 
         private void Start()
         {
-            ChangeState(NpcState.Deciding);
+            _stateBlock.DecideNewAction();
         }
 
         private void Update()
         {
-            _state.Update(Time.deltaTime);
-            _stats.UpdateStats(Time.deltaTime);
-        }
-
-        public void ChangeState(NpcState state)
-        {
-            INpcState newState;
-            switch (state)
-            {
-                case NpcState.Deciding:
-                    newState = new DecidingNpcState(this, _aiBrain);
-                    break;
-                case NpcState.Moving:
-                    newState = new MovingNpcState(this, _mover, ((IAiActionWithDestination)_aiBrain.BestAction).DestinationPosition);
-                    break;
-                case NpcState.Executing:
-                    newState = new ExecutingNpcState(_aiBrain.BestAction);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
-            }
-
-            _state = newState;
+            _stateBlock.Update(Time.deltaTime);
         }
 
         public Vector3 GetSleepPosition()
         {
-            return Vector3.zero;
+            return new Vector3(1f, 1f, 1f);
         }
 
         public Vector3 GetWorkPosition()
         {
-            return new Vector3(-5f, 0f, -5f);
+            return new Vector3(-5f, 1f, -5f);
         }
 
         public void DoWork()
         {
-            StartCoroutine(WorkRoutine());
+            _stateBlock.ChangeState(NpcState.Working);
         }
 
         public void DoSleep()
         {
-            StartCoroutine(SleepRoutine());
+            _stateBlock.ChangeState(NpcState.Sleeping);
         }
 
         public void DoEat()
@@ -97,36 +68,7 @@ namespace Npc
             _stats.Hunger -= 20;
             _stats.Money -= 200;
 
-            DecideNewAction();
-        }
-
-        private void AiBrain_OnBestActionDecided()
-        {
-            _aiBrain.BestAction.Execute();
-
-            _npcView.UpdateBestAction(_aiBrain.BestAction);
-        }
-
-        private IEnumerator WorkRoutine()
-        {
-            yield return new WaitForSeconds(_workTimeSeconds);
-            _inventory.AddResource(ResourceType.Wood, 10);
-            _stats.Money += 100;
-
-            DecideNewAction();
-        }
-
-        private IEnumerator SleepRoutine()
-        {
-            yield return new WaitForSeconds(_sleepTimeSeconds);
-            _stats.Energy += 5;
-
-            DecideNewAction();
-        }
-
-        private void DecideNewAction()
-        {
-            ChangeState(NpcState.Deciding);
+            _stateBlock.DecideNewAction();
         }
     }
 }

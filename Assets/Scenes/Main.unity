@@ -334,6 +334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724a83669735449aa95900ce8b9d8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aiBrain: {fileID: 2137896834}
+  _npcStats: {fileID: 2137896835}
   _bestActionText: {fileID: 1326806082}
   _energyText: {fileID: 694004381}
   _hungerText: {fileID: 15172240}
@@ -2002,10 +2004,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04e0f2c3deef7644888d4737f64003c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npcView: {fileID: 173839943}
-  _moveController: {fileID: 2137896833}
-  _statsController: {fileID: 2137896835}
-  _inventoryController: {fileID: 2137896836}
+  _mover: {fileID: 2137896833}
+  _stats: {fileID: 2137896835}
+  _inventory: {fileID: 2137896836}
   _aiBrain: {fileID: 2137896834}
   _workTimeSeconds: 5
   _sleepTimeSeconds: 10
@@ -2034,7 +2035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef67dfbd886649f3b7d0fd198e01655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npcController: {fileID: 2137896832}
+  _npc: {fileID: 2137896832}
   _actionsData:
   - {fileID: 11400000, guid: 42add798b2bd3e542a7490b306aca221, type: 2}
   - {fileID: 11400000, guid: 22f547122b64d5d4c8106ce2240f3053, type: 2}
@@ -2051,7 +2052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9fd6dca5ba40afb45dc15ade89bbf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npcView: {fileID: 173839943}
   _decreaseEnergyTimeout: 1
   _increaseHungerTimeout: 1
 --- !u!114 &2137896836
