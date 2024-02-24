@@ -1,4 +1,4 @@
-using Controllers;
+using Npc;
 using UnityEngine;
 using UnityEngine.UI;
 using UtilityAi.Actions;
@@ -13,11 +13,11 @@ namespace Ui
         [SerializeField] private Text _hungerText;
         [SerializeField] private Text _moneyText;
 
-        public void UpdateStats(NpcStatsController npcStatsController)
+        public void UpdateStats(NpcStats npcStats)
         {
-            _energyText.text = npcStatsController.Energy.ToString();
-            _hungerText.text = npcStatsController.Hunger.ToString();
-            _moneyText.text = npcStatsController.Money.ToString();
+            _energyText.text = npcStats.Energy.ToString();
+            _hungerText.text = npcStats.Hunger.ToString();
+            _moneyText.text = npcStats.Money.ToString();
         }
 
         public void UpdateBestAction(IAiAction action)

@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Controllers
+namespace Npc
 {
-    public class MoveController : MonoBehaviour
+    public class NpcMover : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent _navMeshAgent;
 

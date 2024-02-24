@@ -1,5 +1,5 @@
 using System;
-using Controllers;
+using Npc;
 using UtilityAi.Actions;
 using UtilityAi.Considerations;
 using UtilityAi.Data;
@@ -8,7 +8,7 @@ namespace UtilityAi
 {
     public static class AiActionFactory
     {
-        public static IAiAction[] CreateActions(AiActionData[] actionsData, NpcController npcController)
+        public static IAiAction[] CreateActions(AiActionData[] actionsData, DefaultNpc npc)
         {
             var actions = new IAiAction[actionsData.Length];
 
@@ -16,19 +16,19 @@ namespace UtilityAi
             {
                 var actionData = actionsData[i];
 
-                var considerations = CreateConsiderations(actionData.Considerations, npcController);
+                var considerations = CreateConsiderations(actionData.Considerations, npc);
 
                 IAiAction aiAction;
                 switch (actionData.Type)
                 {
                     case AiActionType.Eat:
-                        aiAction = new EatAiAction(actionData.Name, considerations, npcController);
+                        aiAction = new EatAiAction(actionData.Name, considerations, npc);
                         break;
                     case AiActionType.Sleep:
-                        aiAction = new SleepAiAction(actionData.Name, considerations, npcController);
+                        aiAction = new SleepAiAction(actionData.Name, considerations, npc);
                         break;
                     case AiActionType.Work:
-                        aiAction = new WorkAiAction(actionData.Name, considerations, npcController);
+                        aiAction = new WorkAiAction(actionData.Name, considerations, npc);
                         break;
                     case AiActionType.Undefined:
                     default:
@@ -42,7 +42,7 @@ namespace UtilityAi
         }
 
         private static AiConsideration[] CreateConsiderations(AiConsiderationData[] considerationsData,
-            NpcController npcController)
+            DefaultNpc npc)
         {
             var considerations = new AiConsideration[considerationsData.Length];
             for (var i = 0; i < considerationsData.Length; i++)
@@ -53,13 +53,13 @@ namespace UtilityAi
                 switch (considerationData.Type)
                 {
                     case AiConsiderationType.Energy:
-                        consideration = new EnergyAiConsideration(considerationData.Name, considerationData.ResponseCurve, npcController);
+                        consideration = new EnergyAiConsideration(considerationData.Name, considerationData.ResponseCurve, npc);
                         break;
                     case AiConsiderationType.Hunger:
-                        consideration = new HungerAiConsideration(considerationData.Name, considerationData.ResponseCurve, npcController);
+                        consideration = new HungerAiConsideration(considerationData.Name, considerationData.ResponseCurve, npc);
                         break;
                     case AiConsiderationType.Money:
-                        consideration = new MoneyAiConsideration(considerationData.Name, considerationData.ResponseCurve, npcController);
+                        consideration = new MoneyAiConsideration(considerationData.Name, considerationData.ResponseCurve, npc);
                         break;
                     case AiConsiderationType.Undefined:
                     default:

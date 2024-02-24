@@ -1,6 +1,6 @@
 using UtilityAi.Actions;
 
-namespace Controllers.NpcStates
+namespace Npc.NpcStates
 {
     public class ExecutingNpcState : INpcState
     {

@@ -2,9 +2,9 @@ using System;
 using Ui;
 using UnityEngine;
 
-namespace Controllers
+namespace Npc
 {
-    public class NpcStatsController : MonoBehaviour
+    public class NpcStats : MonoBehaviour
     {
         private const int MaxEnergy = 100;
         private const int MaxHunger = 100;

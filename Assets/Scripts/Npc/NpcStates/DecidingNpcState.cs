@@ -2,16 +2,16 @@ using UnityEngine;
 using UtilityAi;
 using UtilityAi.Actions;
 
-namespace Controllers.NpcStates
+namespace Npc.NpcStates
 {
     public class DecidingNpcState : INpcState
     {
-        private readonly NpcController _npcController;
+        private readonly DefaultNpc _npc;
         private readonly AiBrain _aiBrain;
 
-        public DecidingNpcState(NpcController npcController, AiBrain aiBrain)
+        public DecidingNpcState(DefaultNpc npc, AiBrain aiBrain)
         {
-            _npcController = npcController;
+            _npc = npc;
             _aiBrain = aiBrain;
         }
 
@@ -20,13 +20,13 @@ namespace Controllers.NpcStates
             _aiBrain.UpdateBestAction();
 
             if (_aiBrain.BestAction is IAiActionWithDestination actionWithDestination
-                && Vector3.Distance(actionWithDestination.DestinationPosition, _npcController.transform.position) > 1f)
+                && Vector3.Distance(actionWithDestination.DestinationPosition, _npc.transform.position) > 1f)
             {
-                _npcController.ChangeState(NpcState.Moving);
+                _npc.ChangeState(NpcState.Moving);
             }
             else
             {
-                _npcController.ChangeState(NpcState.Executing);
+                _npc.ChangeState(NpcState.Executing);
             }
         }
     }

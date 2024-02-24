@@ -1,6 +1,7 @@
 using System;
-using Controllers;
+using Npc;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UtilityAi.Actions;
 using UtilityAi.Data;
 
@@ -8,7 +9,7 @@ namespace UtilityAi
 {
     public class AiBrain : MonoBehaviour
     {
-        [SerializeField] private NpcController _npcController;
+        [FormerlySerializedAs("_npcController")] [SerializeField] private DefaultNpc _npc;
         [SerializeField] private AiActionData[] _actionsData;
 
         private IAiAction[] _actions;
@@ -28,7 +29,7 @@ namespace UtilityAi
 
         private void Awake()
         {
-            _actions = AiActionFactory.CreateActions(_actionsData, _npcController);
+            _actions = AiActionFactory.CreateActions(_actionsData, _npc);
         }
 
         public void UpdateBestAction()

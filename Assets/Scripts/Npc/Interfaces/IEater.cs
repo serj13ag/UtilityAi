@@ -1,4 +1,4 @@
-namespace Controllers.Interfaces
+namespace Npc.Interfaces
 {
     public interface IEater
     {

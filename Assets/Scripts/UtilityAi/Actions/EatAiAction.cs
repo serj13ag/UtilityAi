@@ -1,4 +1,4 @@
-using Controllers.Interfaces;
+using Npc.Interfaces;
 using UtilityAi.Considerations;
 
 namespace UtilityAi.Actions

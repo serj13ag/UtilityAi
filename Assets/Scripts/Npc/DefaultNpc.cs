@@ -1,24 +1,24 @@
 using System;
 using System.Collections;
-using Controllers.Interfaces;
-using Controllers.NpcStates;
 using Entities;
+using Npc.Interfaces;
+using Npc.NpcStates;
 using Ui;
 using UnityEngine;
 using UtilityAi;
 using UtilityAi.Actions;
 
-namespace Controllers
+namespace Npc
 {
-    public class NpcController : MonoBehaviour,
+    public class DefaultNpc : MonoBehaviour,
         IEater, ISleeper, IWorker,
         IEntityWithHunger, IEntityWithEnergy, IEntityWithMoney
     {
         [SerializeField] private NpcView _npcView;
 
-        [SerializeField] private MoveController _moveController;
-        [SerializeField] private NpcStatsController _statsController;
-        [SerializeField] private NpcInventoryController _inventoryController;
+        [SerializeField] private NpcMover _mover;
+        [SerializeField] private NpcStats _stats;
+        [SerializeField] private NpcInventory _inventory;
         [SerializeField] private AiBrain _aiBrain;
 
         [SerializeField] private float _workTimeSeconds;
@@ -26,9 +26,9 @@ namespace Controllers
 
         private INpcState _state;
 
-        public float HungerNormalized => _statsController.HungerNormalized;
-        public float EnergyNormalized => _statsController.EnergyNormalized;
-        public float MoneyNormalized => _statsController.MoneyNormalized;
+        public float HungerNormalized => _stats.HungerNormalized;
+        public float EnergyNormalized => _stats.EnergyNormalized;
+        public float MoneyNormalized => _stats.MoneyNormalized;
 
         private void OnEnable()
         {
@@ -48,7 +48,7 @@ namespace Controllers
         private void Update()
         {
             _state.Update(Time.deltaTime);
-            _statsController.UpdateStats(Time.deltaTime);
+            _stats.UpdateStats(Time.deltaTime);
         }
 
         public void ChangeState(NpcState state)
@@ -60,7 +60,7 @@ namespace Controllers
                     newState = new DecidingNpcState(this, _aiBrain);
                     break;
                 case NpcState.Moving:
-                    newState = new MovingNpcState(this, _moveController, ((IAiActionWithDestination)_aiBrain.BestAction).DestinationPosition);
+                    newState = new MovingNpcState(this, _mover, ((IAiActionWithDestination)_aiBrain.BestAction).DestinationPosition);
                     break;
                 case NpcState.Executing:
                     newState = new ExecutingNpcState(_aiBrain.BestAction);
@@ -94,8 +94,8 @@ namespace Controllers
 
         public void DoEat()
         {
-            _statsController.Hunger -= 20;
-            _statsController.Money -= 200;
+            _stats.Hunger -= 20;
+            _stats.Money -= 200;
 
             DecideNewAction();
         }
@@ -110,8 +110,8 @@ namespace Controllers
         private IEnumerator WorkRoutine()
         {
             yield return new WaitForSeconds(_workTimeSeconds);
-            _inventoryController.AddResource(ResourceType.Wood, 10);
-            _statsController.Money += 100;
+            _inventory.AddResource(ResourceType.Wood, 10);
+            _stats.Money += 100;
 
             DecideNewAction();
         }
@@ -119,7 +119,7 @@ namespace Controllers
         private IEnumerator SleepRoutine()
         {
             yield return new WaitForSeconds(_sleepTimeSeconds);
-            _statsController.Energy += 5;
+            _stats.Energy += 5;
 
             DecideNewAction();
         }

@@ -1,4 +1,4 @@
-namespace Controllers.NpcStates
+namespace Npc.NpcStates
 {
     public enum NpcState
     {

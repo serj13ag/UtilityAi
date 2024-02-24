@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Controllers.Interfaces
+namespace Npc.Interfaces
 {
     public interface IWorker
     {

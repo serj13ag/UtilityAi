@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Entities;
 using UnityEngine;
 
-namespace Controllers
+namespace Npc
 {
-    public class NpcInventoryController : MonoBehaviour
+    public class NpcInventory : MonoBehaviour
     {
         [SerializeField] private int _maxCapacityPerResource;
 
