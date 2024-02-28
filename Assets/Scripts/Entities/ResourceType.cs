@@ -2,7 +2,7 @@ namespace Entities
 {
     public enum ResourceType
     {
-        Food,
+        Water,
         Stone,
         Wood,
     }

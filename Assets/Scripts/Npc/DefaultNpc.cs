@@ -1,3 +1,4 @@
+using Entities;
 using Npc.Interfaces;
 using Npc.NpcStates;
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace Npc
 
         public Vector3 GetWorkPosition()
         {
-            return _sceneContext.ResourcePosition;
+            return _sceneContext.GetResourcePosition(ResourceType.Water); //TODO select concrete resource based on common storage
         }
 
         public void DoWork()

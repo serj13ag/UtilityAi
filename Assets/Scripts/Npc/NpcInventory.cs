@@ -15,7 +15,7 @@ namespace Npc
         {
             _inventory = new Dictionary<ResourceType, int>()
             {
-                { ResourceType.Food, 0 },
+                { ResourceType.Water, 0 },
                 { ResourceType.Stone, 0 },
                 { ResourceType.Wood, 0 },
             };
