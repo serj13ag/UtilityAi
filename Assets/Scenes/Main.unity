@@ -2264,7 +2264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1266ec4f24324640bf2f4577138bcab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxCapacityPerResource: 100
+  _maxTotalCapacity: 5
 --- !u!195 &2137896837
 NavMeshAgent:
   m_ObjectHideFlags: 0

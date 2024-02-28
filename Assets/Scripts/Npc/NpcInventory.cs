@@ -7,9 +7,10 @@ namespace Npc
 {
     public class NpcInventory : MonoBehaviour
     {
-        [SerializeField] private int _maxCapacityPerResource;
+        [SerializeField] private int _maxTotalCapacity;
 
         private Dictionary<ResourceType, int> _inventory;
+        private int _currentAmount;
 
         private void Start()
         {
@@ -23,9 +24,16 @@ namespace Npc
 
         public void AddResource(ResourceType resourceType, int amount)
         {
-            var currentAmount = _inventory[resourceType];
+            if (_currentAmount >= _maxTotalCapacity)
+            {
+                return;
+            }
 
-            _inventory[resourceType] = Math.Max(currentAmount + amount, _maxCapacityPerResource);
+            var freeCapacity = _maxTotalCapacity - _currentAmount;
+            var amountToAdd = Math.Min(_currentAmount + amount, freeCapacity);
+
+            _currentAmount += amountToAdd;
+            _inventory[resourceType] += amountToAdd;
         }
     }
 }
