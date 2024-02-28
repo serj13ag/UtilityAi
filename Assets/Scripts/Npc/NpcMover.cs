@@ -9,7 +9,7 @@ namespace Npc
 
         public void MoveTo(Vector3 position)
         {
-            _navMeshAgent.destination = position;
+            _navMeshAgent.destination = new Vector3(position.x, 0f, position.z);
         }
     }
 }

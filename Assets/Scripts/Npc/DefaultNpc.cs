@@ -9,6 +9,8 @@ namespace Npc
         IEater, ISleeper, IWorker,
         IEntityWithHunger, IEntityWithEnergy, IEntityWithMoney
     {
+        [SerializeField] private SceneContext _sceneContext;
+        
         [SerializeField] private NpcMover _mover;
         [SerializeField] private NpcStats _stats;
         [SerializeField] private NpcInventory _inventory;
@@ -46,12 +48,12 @@ namespace Npc
 
         public Vector3 GetSleepPosition()
         {
-            return new Vector3(1f, 1f, 1f);
+            return _sceneContext.HotelPosition;
         }
 
         public Vector3 GetWorkPosition()
         {
-            return new Vector3(-5f, 1f, -5f);
+            return _sceneContext.ResourcePosition;
         }
 
         public void DoWork()
